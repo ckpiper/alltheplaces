@@ -17,6 +17,7 @@ class Categories(Enum):
     CAR_RENTAL = {"amenity": "car_rental"}
     CAR_WASH = {"amenity": "car_wash"}
     PARKING = {"amenity": "parking"}
+    PARKING_SPACE = {"amenity": "parking_space"}
     SCHOOL = {"amenity": "school"}
     UNIVERSITY = {"amenity": "university"}
     COLLEGE = {"amenity": "college"}
@@ -52,9 +53,13 @@ class Categories(Enum):
 
     INDUSTRIAL_WAREHOUSE = {"landuse": "industrial", "industrial": "warehouse"}
 
+    LEISURE_DOG_PARK = {"leisure": "dog_park"}
+    LEISURE_NATURE_RESERVE = {"leisure": "nature_reserve"}
+    LEISURE_PARK = {"leisure": "park"}
+    LEISURE_PITCH = {"leisure": "pitch"}
     LEISURE_PLAYGROUND = {"leisure": "playground"}
     LEISURE_RESORT = {"leisure": "resort"}
-    LEISURE_PARK = {"leisure": "park"}
+    LEISURE_SPORTS_CENTRE = {"leisure": "sports_centre"}
 
     SHOP_AGRARIAN = {"shop": "agrarian"}
     SHOP_ALCOHOL = {"shop": "alcohol"}
@@ -227,11 +232,15 @@ class Categories(Enum):
     AUDIOLOGIST = {"healthcare": "audiologist"}
     BANK = {"amenity": "bank"}
     BAR = {"amenity": "bar"}
+    BARBECUE = {"amenity": "bbq"}
     BENCH = {"amenity": "bench"}
+    BICYCLE_REPAIR_STATION = {"amenity": "bicycle_repair_station"}
     BIRTHING_CENTRE = {"healthcare": "birthing_centre"}
     BLOOD_BANK = {"healthcare": "blood_bank"}
     BLOOD_DONATION = {"healthcare": "blood_donation"}
     BOAT_FUEL_STATION = {"waterway": "fuel"}
+    BOTTLE_REFILL_FOUNTAIN = {"amenity": "drinking_water", "fountain": "bottle_refill"}
+    BUBBLER = {"amenity": "drinking_water", "fountain": "bubbler"}
     BUREAU_DE_CHANGE = {"amenity": "bureau_de_change"}
     CAFE = {"amenity": "cafe"}
     CANTEEN = {"amenity": "canteen"}
@@ -248,6 +257,7 @@ class Categories(Enum):
     DEFIBRILLATOR = {"emergency": "defibrillator"}
     DIALYSIS = {"healthcare": "dialysis"}
     DOCTOR_GP = {"amenity": "doctors", "healthcare": "doctor", "healthcare:speciality": "community"}
+    DOG_BOWL_FOUNTAIN = {"amenity": "drinking_water", "fountain": "dog_bowl"}
     EMERGENCY_WARD = {"emergency": "emergency_ward_entrance"}
     FAST_FOOD = {"amenity": "fast_food"}
     FIRE_STATION = {"amenity": "fire_station"}
@@ -265,6 +275,7 @@ class Categories(Enum):
     MOTEL = {"tourism": "motel"}
     MUSEUM = {"tourism": "museum"}
     NIGHTCLUB = {"amenity": "nightclub"}
+    NURSE_CLINIC = {"healthcare": "nurse"}
     NURSING_HOME = {"amenity": "social_facility", "social_facility": "nursing_home", "social_facility:for": "senior"}
     NUTRITIONIST = {"healthcare": "nutrition_counselling"}
     OPTOMETRIST = {"healthcare": "optometrist"}
@@ -285,11 +296,14 @@ class Categories(Enum):
     REHABILITATION = {"healthcare": "rehabilitation"}
     RESCUE_BUOY = {"emergency": "rescue_buoy"}
     SAMPLE_COLLECTION = {"healthcare": "sample_collection"}
+    SHARPS_WASTE_BASKET = {"amenity": "waste_basket", "waste": "sharps"}
     SPEECH_THERAPIST = {"healthcare": "speech_therapist"}
     TELEPHONE = {"amenity": "telephone"}
+    TOILETS = {"amenity": "toilets"}
     RESTAURANT = {"amenity": "restaurant"}
     VACCINATION_CENTRE = {"healthcare": "vaccination_centre"}
     VETERINARY = {"amenity": "veterinary"}
+    WASTE_BASKET = {"amenity": "waste_basket"}
     WATER_RESCUE = {"emergency": "water_rescue"}
     ANIMAL_BOARDING = {"amenity": "animal_boarding"}
     MORTUARY = {"amenity": "mortuary"}
@@ -317,6 +331,8 @@ class Categories(Enum):
 
     ANTENNA = {"man_made": "antenna"}
     MONITORING_STATION = {"man_made": "monitoring_station"}
+    POWER_POLE = {"power": "pole"}
+    STREET_CABINET_POWER = {"man_made": "street_cabinet", "utility": "power"}
     SUBSTATION = {"power": "substation"}
     SUBSTATION_GENERATION = {"power": "substation", "substation": "generation"}
     SUBSTATION_MINOR_DISTRIBUTION = {"power": "substation", "substation": "minor_distribution"}
@@ -326,6 +342,8 @@ class Categories(Enum):
     SUBSTATION_ZONE = {"power": "substation", "substation": "distribution"}
     SURVEILLANCE_CAMERA = {"man_made": "surveillance", "surveillance:type": "camera"}
     TRANSFORMER = {"power": "transformer"}
+
+    NATURAL_TREE = {"natural": "tree"}
 
 
 def apply_category(category, item: Feature):
@@ -376,6 +394,7 @@ top_level_tags = [
     "landuse",
     "leisure",
     "man_made",
+    "natural",
     "office",
     "power",
     "public_transport",
@@ -483,7 +502,7 @@ class Extras(Enum):
     BABY_CHANGING_TABLE = "changing_table"
     BACKUP_GENERATOR = "backup_generator"
     BAR = "bar"
-    BARBEQUES = "bbq"
+    BARBECUES = "bbq"
     BREAKFAST = "breakfast"
     CALLING = "service:phone"
     CAR_WASH = "car_wash"
@@ -502,6 +521,7 @@ class Extras(Enum):
     FAST_FOOD = "fast_food"
     FAXING = "service:fax"
     FEE = "fee"
+    FEMALE = "female"
     HALAL = "diet:halal"
     HIGH_CHAIR = "highchair"
     ICE_CREAM = "ice_cream"
@@ -509,6 +529,7 @@ class Extras(Enum):
     KIDS_AREA = "kids_area"
     KOSHER = "diet:kosher"
     LIVE_MUSIC = "live_music"
+    MALE = "male"
     MONEYGRAM = "money_transfer=moneygram"
     MOTOR_VEHICLES = "motor_vehicle"
     NEW_CAR_SALES = "service:vehicle:new_car_sales"
@@ -536,6 +557,7 @@ class Extras(Enum):
     TOILETS_WHEELCHAIR = "toilets:wheelchair"
     TRUCK_WASH = "truck_wash"
     TYRE_SERVICES = "service:vehicle:tyres"
+    UNISEX = "unisex"
     USED_CAR_SALES = "service:vehicle:used_car_sales"
     VACUUM_CLEANER = "vacuum_cleaner"
     VEGAN = "diet:vegan"
@@ -647,7 +669,7 @@ class FuelCards(Enum):
     MOBIL = "payment:mobilcard"  # https://www.mobil.co.nz/en-nz/mobilcard
     MOLGROUP_CARDS = "payment:molgroup_cards"  # https://www.molgroupcards.com/
     MORGAN_FUELS = "payment:morgan_fuels"
-    OMV = "payment:omv"  # https://www.omv.com/en/customers/services/fuel-cards
+    OMV = "payment:omv_card"  # https://www.omv.com/en/customers/services/fuel-cards
     PETROL_PLUS_REGION = "payment:petrol_plus_region"  # https://www.petrolplus.ru/
     SHELL = "payment:shell"
     SLOVNAFT = "payment:slovnaft"  # https://slovnaft.sk/en/
