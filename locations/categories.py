@@ -31,6 +31,7 @@ class Categories(Enum):
     SAUNA = {"leisure": "sauna"}
 
     HIGHWAY_RESIDENTIAL = {"highway": "residential"}
+    HIGHWAY_TRAFFIC_SIGNALS = {"highway": "traffic_signals"}
 
     ENFORCEMENT_AVERAGE_SPEED = {"enforcement": "average_speed"}
     ENFORCEMENT_MAXIMUM_SPEED = {"enforcement": "maxspeed"}
@@ -54,6 +55,7 @@ class Categories(Enum):
     INDUSTRIAL_WAREHOUSE = {"landuse": "industrial", "industrial": "warehouse"}
 
     LEISURE_DOG_PARK = {"leisure": "dog_park"}
+    LEISURE_FITNESS_STATION = {"leisure": "fitness_station"}
     LEISURE_NATURE_RESERVE = {"leisure": "nature_reserve"}
     LEISURE_PARK = {"leisure": "park"}
     LEISURE_PITCH = {"leisure": "pitch"}
@@ -616,6 +618,7 @@ class PaymentMethods(Enum):
     PAYPAY = "payment:paypay"
     POWERCARD = "payment:powercard"
     POSTEPAY = "payment:postepay"
+    POSTFINANCE_CARD = "payment:postfinance_card"
     QUICPAY = "payment:quicpay"
     RAKUTEN_PAY = "payment:rakuten_pay"
     SAMSUNG_PAY = "payment:samsung_pay"
@@ -640,9 +643,12 @@ payment_method_aliases = {
     "China UnionPay": PaymentMethods.UNIONPAY,
     "Discover": PaymentMethods.DISCOVER_CARD,
     "Diners": PaymentMethods.DINERS_CLUB,
+    "JCB Card": PaymentMethods.JCB,
     "Maestro (Ausland)": PaymentMethods.MAESTRO,
     "MasterCard": PaymentMethods.MASTER_CARD,
+    "PostFinance Card": PaymentMethods.POSTFINANCE_CARD,
     "PowerCard": PaymentMethods.POWERCARD,
+    "UnionPay": PaymentMethods.UNIONPAY,
 }
 
 
