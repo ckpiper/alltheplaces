@@ -17,16 +17,19 @@ class BurgerKingPESpider(Spider):
         "ROBOTSTXT_OBEY": False,
     }
     api_token = ""
+    start_urls = ["https://www.burgerking.pe/_next/static/chunks/3410-ec2cc34087f14b20.js"]
 
-    def start_requests(self):
+    def parse(self, response, **kwargs):
+        action_token = re.search(r"a=\(0,n\.\$\)\(\"(\w+)\"\)", response.text).group(1)
         yield Request(
-            url="https://www.burgerking.pe/promociones/ver-todo",
+            url="https://www.burgerking.pe/",
             body='["accessToken"]',
-            headers={"next-action": "0bb66827efc453697cde0f01fed3bf7eb3d12673"},
+            headers={"next-action": action_token},
             method="POST",
+            callback=self.parse_request,
         )
 
-    def parse(self, response: Response, **kwargs: Any) -> Any:
+    def parse_request(self, response: Response, **kwargs: Any) -> Any:
         self.api_token = re.search(r"1:\s*\"(.+)\"", response.text).group(1)
         yield JsonRequest(
             url="https://apiprod.pidelo.digital/api.stores/v1/stores/get-district?brandId=41",
