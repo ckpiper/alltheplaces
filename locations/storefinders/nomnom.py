@@ -4,7 +4,7 @@ from typing import Iterable
 from urllib import parse as urlparse
 
 from scrapy import Spider
-from scrapy.http import Request, Response, TextResponse
+from scrapy.http import JsonResponse, Request, Response
 
 from locations.categories import Extras, apply_yes_no
 from locations.dict_parser import DictParser
@@ -60,7 +60,12 @@ class NomNomSpider(Spider):
         "dispatch": "opening_hours:delivery",
     }
 
-    def parse(self, response: TextResponse) -> Iterable[Feature]:
+    def parse(self, response: Response) -> Iterable[Feature]:
+        if not isinstance(response, JsonResponse):
+            self.logger.error(
+                f"Unexpected response type {type(response)} (content-type {response.headers.get(b'Content-Type')})"
+            )
+            return
         for location in response.json()["restaurants"]:
             item = DictParser.parse(location)
             item["ref"] = location["extref"]
@@ -71,16 +76,17 @@ class NomNomSpider(Spider):
             apply_yes_no(Extras.TAKEAWAY, item, location["canpickup"] or location["supportscurbside"])
             apply_yes_no(Extras.DRIVE_THROUGH, item, location["supportsdrivethru"])
 
-            calendars = location["calendars"]
-            if isinstance(calendars, dict):
-                calendars = calendars["calendar"]
-            if calendars is None:
-                calendars = []
-            for calendar in calendars:
-                if calendar["type"] == "business":
-                    item["opening_hours"] = self.parse_opening_hours(calendar)
-                elif key := self.CALENDAR_KEYS.get(calendar["type"]):
-                    item["extras"][key] = self.parse_opening_hours(calendar).as_opening_hours()
+            if self.use_calendar:
+                calendars = location["calendars"]
+                if isinstance(calendars, dict):
+                    calendars = calendars["calendar"]
+                if calendars is None:
+                    calendars = []
+                for calendar in calendars:
+                    if calendar["type"] == "business":
+                        item["opening_hours"] = self.parse_opening_hours(calendar)
+                    elif key := self.CALENDAR_KEYS.get(calendar["type"]):
+                        item["extras"][key] = self.parse_opening_hours(calendar).as_opening_hours()
 
             yield from self.post_process_item(item, response, location)
 
