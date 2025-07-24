@@ -7,6 +7,8 @@ import requests
 import tldextract
 from unidecode import unidecode
 
+from locations.user_agents import BOT_USER_AGENT_REQUESTS
+
 
 class Singleton(type):
     _instances = {}
@@ -31,7 +33,10 @@ class NSI(metaclass=Singleton):
 
     @staticmethod
     def _request_file(file: str) -> dict:
-        resp = requests.get("https://raw.githubusercontent.com/osmlab/name-suggestion-index/main/" + file)
+        resp = requests.get(
+            "https://raw.githubusercontent.com/osmlab/name-suggestion-index/main/{}".format(file),
+            headers={"User-Agent": BOT_USER_AGENT_REQUESTS},
+        )
         if not resp.status_code == 200:
             raise Exception("NSI load failure")
         return resp.json()
@@ -61,7 +66,7 @@ class NSI(metaclass=Singleton):
         for wikidata_code, org_parameters in self.wikidata_json.items():
             for official_website in org_parameters.get("officialWebsites", []):
                 official_website_domain = urlparse(official_website).netloc
-                if official_website_domain.lstrip("www.") == supplied_url_domain.lstrip("www."):
+                if official_website_domain.removeprefix("www.") == supplied_url_domain.removeprefix("www."):
                     return wikidata_code
         # Last attempt to find a fuzzy match for registered domain (excluding subdomains)
         for wikidata_code, org_parameters in self.wikidata_json.items():

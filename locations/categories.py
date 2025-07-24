@@ -59,6 +59,7 @@ class Categories(Enum):
     DARK_STORE_GROCERY = {"dark_store": "grocery"}
 
     INDUSTRIAL_WAREHOUSE = {"landuse": "industrial", "industrial": "warehouse"}
+    RESIDENTIAL_APARTMENTS = {"landuse": "residential", "residential": "apartments"}
 
     LEISURE_GARDEN = {"leisure": "garden"}
     LEISURE_DOG_PARK = {"leisure": "dog_park"}
@@ -91,6 +92,9 @@ class Categories(Enum):
     SHOP_BOOKMAKER = {"shop": "bookmaker"}
     SHOP_BOOKS = {"shop": "books"}
     SHOP_BUTCHER = {"shop": "butcher"}
+    SHOP_BUS = {"shop": "bus"}
+    SHOP_BUS_REPAIR = {"shop": "bus_repair"}
+    SHOP_BUS_PARTS = {"shop": "bus_parts"}
     SHOP_CAMERA = {"shop": "camera"}
     SHOP_CANDLES = {"shop": "candles"}
     SHOP_CANNABIS = {"shop": "cannabis"}
@@ -223,7 +227,9 @@ class Categories(Enum):
 
     OFFICE_ARCHITECT = {"office": "architect"}
     OFFICE_COMPANY = {"office": "company"}
+    OFFICE_CONSULTING = {"office": "consulting"}
     OFFICE_COURIER = {"office": "courier"}
+    OFFICE_COWORKING = {"office": "coworking"}
     OFFICE_ENGINEER = {"office": "engineer"}
     OFFICE_ESTATE_AGENT = {"office": "estate_agent"}
     OFFICE_FINANCIAL = {"office": "financial"}
@@ -303,6 +309,7 @@ class Categories(Enum):
     NUTRITIONIST = {"healthcare": "nutrition_counselling"}
     OPTOMETRIST = {"healthcare": "optometrist"}
     PARCEL_LOCKER = {"amenity": "parcel_locker"}
+    PAYMENT_CENTRE = {"amenity": "payment_centre"}
     PHARMACY = {"amenity": "pharmacy", "healthcare": "pharmacy"}
     PHOTO_BOOTH = {"amenity": "photo_booth"}
     PHYSIOTHERAPIST = {"healthcare": "physiotherapist"}
@@ -329,6 +336,7 @@ class Categories(Enum):
     TAXI = {"amenity": "taxi"}
     TELEPHONE = {"amenity": "telephone"}
     TOILETS = {"amenity": "toilets"}
+    THEATRE = {"amenity": "theatre"}
     VACCINATION_CENTRE = {"healthcare": "vaccination_centre"}
     VENDING_MACHINE = {"amenity": "vending_machine"}
     VETERINARY = {"amenity": "veterinary"}
@@ -350,8 +358,23 @@ class Categories(Enum):
     TRADE_SWIMMING_POOL_SUPPLIES = {"trade": "swimming_pool_supplies"}
 
     ANTENNA = {"man_made": "antenna"}
+    BOREHOLE = {"man_made": "borehole"}
+    CULVERT = {"tunnel": "culvert"}
     FIRE_HYDRANT = {"emergency": "fire_hydrant"}
+    KERB_GRATE = {
+        "man_made": "manhole",
+        "manhole": "drain",
+        "inlet": "kerb_grate",
+        "utility": "stormwater",
+        "substance": "rainwater",
+    }
     MONITORING_STATION = {"man_made": "monitoring_station"}
+    OUTFALL_STORMWATER = {
+        "man_made": "outfall",
+        "utility": "stormwater",
+        "substance": "rainwater",
+    }
+    PETROLEUM_WELL = {"man_made": "petroleum_well"}
     POWER_POLE = {"power": "pole"}
     POWER_TOWER = {"power": "tower"}
     PUMPING_STATION_SEWAGE = {
@@ -372,7 +395,8 @@ class Categories(Enum):
         "utility": "water",
         "substance": "water",
     }
-    STREET_CABINET_POWER = {"man_made": "street_cabinet", "street_cabinet": "power", "utility": "power"}
+    STREET_CABINET_LIGHTING = {"man_made": "street_cabinet", "utility": "street_lighting"}
+    STREET_CABINET_POWER = {"man_made": "street_cabinet", "utility": "power"}
     STREET_CABINET_TRAFFIC_CONTROL = {"man_made": "street_cabinet", "street_cabinet": "traffic_control"}
     STREET_LAMP = {"highway": "street_lamp", "support": "pole"}
     SUBSTATION = {"power": "substation"}
@@ -384,7 +408,9 @@ class Categories(Enum):
     SUBSTATION_ZONE = {"power": "substation", "substation": "distribution"}
     SURVEILLANCE_CAMERA = {"man_made": "surveillance", "surveillance:type": "camera"}
     TRANSFORMER = {"power": "transformer"}
+    WATER_WELL = {"man_made": "water_well"}
 
+    NATURAL_BASIN = {"natural": "water", "water": "basin"}
     NATURAL_TREE = {"natural": "tree"}
 
 
@@ -427,6 +453,7 @@ def apply_category(category, item: Feature):
 top_level_tags = [
     "aeroway",
     "amenity",
+    "barrier",
     "cemetery",
     "club",
     "craft",
@@ -441,10 +468,12 @@ top_level_tags = [
     "office",
     "power",
     "public_transport",
+    "railway",
     "shop",
     "telecom",
     "tourism",
-    "railway",
+    "traffic_calming",
+    "tunnel",
     "waterway",
 ]
 
