@@ -11,7 +11,6 @@ from locations.items import Feature
 class LuminorLTSpider(Spider):
     name = "luminor_lt"
     item_attributes = {"brand": "Luminor Bank", "brand_wikidata": "Q28966957"}
-    requires_proxy = True
     custom_settings = {"ROBOTSTXT_OBEY": False}
     start_urls = ["https://www.luminor.lt/en/bank-network"]
 
