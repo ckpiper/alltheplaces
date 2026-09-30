@@ -13,7 +13,6 @@ class LuminorLVSpider(Spider):
     item_attributes = {"brand": "Luminor Bank", "brand_wikidata": "Q28966957"}
     # Cloudflare serves a JS challenge to datacenter IPs (including for robots.txt), so a proxy is
     # required and robots.txt cannot be fetched/obeyed.
-    requires_proxy = True
     custom_settings = {"ROBOTSTXT_OBEY": False}
     start_urls = ["https://www.luminor.lv/lv/musu-tikls"]
 
